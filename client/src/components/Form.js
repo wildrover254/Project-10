@@ -1,0 +1,46 @@
+import React from "react";
+
+export default function Form(props) {
+    const {
+        cancel,
+        errors,
+        submit,
+        submitButtonText,
+        elements,
+    } = props;
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        submit();
+    }
+
+    function handleCancel(event) {
+        event.preventDefault();
+        cancel();
+    }
+
+    return (
+        <div>
+            <ErrorsDisplay errors={errors} />
+            <form onSubmit={handleSubmit}>
+                {elements()}
+                <button className="button" type="submit">{submitButtonText}</button>
+                <button className="button button-secondary" onClick={handleCancel}>Cancel</button>
+            </form>
+        </div>
+    );
+}
+
+function ErrorsDisplay({ errors }) {
+    let errorsDisplay = null;
+
+    if (errors.length) {
+        errorsDisplay = (
+            <div>
+                <h2>Validation Errors</h2>
+            </div>
+        );
+    }
+
+    return errorsDisplay;
+}
