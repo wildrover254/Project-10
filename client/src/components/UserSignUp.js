@@ -10,7 +10,7 @@ export default function UserSignUp() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
-    const [password, setPassword] = useState();
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const submit = () => {
@@ -26,6 +26,10 @@ export default function UserSignUp() {
             if (errors.length) {
                 setErrors(errors);
             } else {
+                context.actions.signIn(user.emailAddress, user.password)
+                    .then(() => {
+                        history.push('/');
+                    })
                 console.log(`${firstName} is successfully registered!`);
             }
         })
@@ -87,7 +91,7 @@ export default function UserSignUp() {
                             <label htmlFor="password">Password</label>
                             <input 
                                 id="password"
-                                name="pasword"
+                                name="password"
                                 type="password"
                                 value={password}
                                 onChange={change}/>
