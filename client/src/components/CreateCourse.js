@@ -17,7 +17,7 @@ export default function CreateCourse() {
 
     const submit = () =>{
         const emailAddress = authenticatedUser.user.emailAddress;
-        const password = authenticatedUser.user.password;
+        //const password = authenticatedUser.user.password;
         const course = {
             courseTitle,
             courseDescription,
@@ -30,7 +30,7 @@ export default function CreateCourse() {
         //console.log(emailAddress);
         //console.log(password)
 
-        context.data.createCourse(course, emailAddress, password)
+        context.data.createCourse(course, emailAddress, authenticatedUser.user.clientPassword)
             .then(errors => {
                 if (errors.length) {
                     setErrors(errors);

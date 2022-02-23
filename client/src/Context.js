@@ -5,12 +5,18 @@ import Data from "./Data";
 export const Context = React.createContext();
 
 export class Provider extends Component {
+
+    state = {
+        authenticatedUser: null,
+        password: null
+    }
+
     constructor() {
         super();
         this.data = new Data();
         this.cookie = Cookies.get('authenticatedUser');
         this.state = {
-            authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null
+            authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null            
         };
     }
 
@@ -35,7 +41,9 @@ export class Provider extends Component {
 
     signIn = async (emailAddress, password) => {
         const user = await this.data.getUser(emailAddress, password);
+        const clientPassword = password;
         if (user !== null) {
+            user.clientPassword = clientPassword;
             this.setState(() => {
                 return {
                     authenticatedUser: user,
