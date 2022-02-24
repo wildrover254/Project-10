@@ -1,30 +1,49 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Context } from "../Context";
+import ReactMarkdown from 'react-markdown';
 
 export default function CourseDetail(props) {
 
-    const [courses, setCourses] = useState([]);
-
-    const fetchCourse = (props) => {
-        return fetch(`http://localhost:5000/api/courses/${props.match.params.id}`)
-            .then((response) => response.json())
-            .then((courses) => setCourses(courses))
-            .catch((error) => console.log(error));
-    }
+    const context = useContext(Context);
+    const history = useHistory();
+    const { id } = props.match.params;
+    const {authenticatedUser} = context;
+    const [course, setCourse] = useState([]);
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
-        fetchCourse(props);
-        console.log(courses);
-    }, []);
+        context.data.fetchCourse(id)
+            .then(response => {
+                setCourse(response);
+                setUser(response.User);
+            })
+    }, [context.data, id]);
 
-    console.log(courses);
+    const handleDelete = () => {
+        const emailAddress = authenticatedUser.user.emailAddress;
+        const password = authenticatedUser.clientPassword;
+        context.data.courseDelete(id, emailAddress, password)
+            .then(
+                console.log('Course Deleted'),
+                history.push('/')
+                )
+    }
 
     return (
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <a className="button" href="#">Update Course</a>
-                    <a className="button" href="#">Delete Course</a>
-                    <a className="button button-secondary" href="/">Return to List</a>
+                    { authenticatedUser && course.userId === authenticatedUser.user.id ? (
+                        <React.Fragment>
+                            <Link className="button" to={`/course/${id}/update`}>Update Course</Link>
+                            <button className="button" onClick={handleDelete}>Delete Course</button>
+                            <Link className="button button-secondary" to="/">Return to List</Link>
+                        </React.Fragment>
+                     ) : (
+                        <Link className="button button-secondary" to="/">Return to List</Link>
+                     )
+                    }
                 </div>
             </div>
             <div className="wrap">
@@ -33,16 +52,20 @@ export default function CourseDetail(props) {
                     <div className="main--flex">
                         <div>
                             <h3 className="course--detail--title">Course</h3>
-                            <h4 className="course--name">{courses.title}</h4>
-                            <p>By: </p>
-                            <p>{courses.description}</p>
+                            <h4 className="course--name">{course.title}</h4>
+                            <p>By: {user.firstName} {user.lastName} </p>
+                            <ReactMarkdown>
+                                {course.description}
+                            </ReactMarkdown>
                         </div>
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
-                            <p>{courses.estimatedTime}</p>
+                            <p>{course.estimatedTime}</p>
 
                             <h3 className="course--detail--title">Materials Needed</h3>
-                            <p>{courses.materialsNeeded}</p>
+                            <ReactMarkdown>
+                                {course.materialsNeeded}
+                            </ReactMarkdown>
                         </div>
                     </div>
                 </form>

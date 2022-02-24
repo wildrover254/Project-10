@@ -8,8 +8,8 @@ export default function CreateCourse() {
     const history = useHistory();
     const context = useContext(Context);
     const {authenticatedUser} = context;
-    const [courseTitle, setCourseTitle] = useState('');
-    const [courseDescription, setCourseDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [userId] = useState(authenticatedUser.user.id);
@@ -17,10 +17,10 @@ export default function CreateCourse() {
 
     const submit = () =>{
         const emailAddress = authenticatedUser.user.emailAddress;
-        //const password = authenticatedUser.user.password;
+        const password = authenticatedUser.clientPassword;
         const course = {
-            courseTitle,
-            courseDescription,
+            title,
+            description,
             estimatedTime,
             materialsNeeded,
             userId
@@ -30,7 +30,7 @@ export default function CreateCourse() {
         //console.log(emailAddress);
         //console.log(password)
 
-        context.data.createCourse(course, emailAddress, authenticatedUser.user.clientPassword)
+        context.data.createCourse(course, emailAddress, password)
             .then(errors => {
                 if (errors.length) {
                     setErrors(errors);
@@ -47,9 +47,9 @@ export default function CreateCourse() {
 
     const change = (event) => {
         if (event.target.name === 'courseTitle') {
-            setCourseTitle(event.target.value)
+            setTitle(event.target.value)
         } else if (event.target.name === 'courseDescription') {
-            setCourseDescription(event.target.value)
+            setDescription(event.target.value)
         } else if (event.target.name === 'estimatedTime') {
             setEstimatedTime(event.target.value)
         } else if (event.target.name === 'materialsNeeded') {
@@ -75,7 +75,7 @@ export default function CreateCourse() {
                                         id="courseTitle"
                                         name="courseTitle"
                                         type="text"
-                                        value={courseTitle}
+                                        value={title}
                                         onChange={change}/>
                                     <p>By: {authenticatedUser.user.firstName} {authenticatedUser.user.lastName}</p>
                                     <label htmlFor="courseDescription">Course Description</label>
@@ -83,7 +83,7 @@ export default function CreateCourse() {
                                         id="courseDescription"
                                         name="courseDescription"
                                         type="text"
-                                        value={courseDescription}
+                                        value={description}
                                         onChange={change}/>
                                 </div>
                                 <div>

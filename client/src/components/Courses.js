@@ -1,19 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
+import { Context } from "../Context";
 
 export default function Courses() {
 
+    const context = useContext(Context);
     const [courses, setCourses] = useState([]);
 
-    const fetchCourses = () => {
-        fetch('http://localhost:5000/api/courses')
-            .then((response) => response.json())
-            .then((courses) => setCourses(courses))
-            .catch((error) => console.log(error));
-    }
-
     useEffect(() => {
-        fetchCourses();
-    }, []);
+        context.data.fetchCourses()
+            .then(courses => setCourses(courses))
+    }, [context.data]);
 
     return (
         <main>
