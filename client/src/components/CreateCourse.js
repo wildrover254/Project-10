@@ -25,10 +25,6 @@ export default function CreateCourse() {
             materialsNeeded,
             userId
         }
-        //console.log(course);
-        //console.log(authenticatedUser);
-        //console.log(emailAddress);
-        //console.log(password)
 
         context.data.createCourse(course, emailAddress, password)
             .then(errors => {

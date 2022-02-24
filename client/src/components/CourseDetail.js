@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Context } from "../Context";
 import ReactMarkdown from 'react-markdown';
 
@@ -7,7 +7,7 @@ export default function CourseDetail(props) {
 
     const context = useContext(Context);
     const history = useHistory();
-    const { id } = props.match.params;
+    const { id } = useParams();
     const {authenticatedUser} = context;
     const [course, setCourse] = useState([]);
     const [user, setUser] = useState([]);
@@ -36,7 +36,7 @@ export default function CourseDetail(props) {
                 <div className="wrap">
                     { authenticatedUser && course.userId === authenticatedUser.user.id ? (
                         <React.Fragment>
-                            <Link className="button" to={`/course/${id}/update`}>Update Course</Link>
+                            <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
                             <button className="button" onClick={handleDelete}>Delete Course</button>
                             <Link className="button button-secondary" to="/">Return to List</Link>
                         </React.Fragment>
