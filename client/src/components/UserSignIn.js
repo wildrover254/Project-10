@@ -11,6 +11,7 @@ export default function UserSignIn() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    //Submits the Users credentials for sign in
     const submit = () => {
         context.actions.signIn(emailAddress, password)
             .then(user => {
@@ -28,6 +29,7 @@ export default function UserSignIn() {
             })
     } 
 
+    //Stores user inputin state
     const change = (e) => {
         if (e.target.name === 'emailAddress') {
             setEmailAddress(e.target.value)
@@ -36,10 +38,12 @@ export default function UserSignIn() {
         }
     }
 
+    //Cancel function returns user to root
     const cancel = () => {
         history.push('/');
     }
 
+    //Renders the sign in form
     return (
         <main>
             <div className="form--centered">

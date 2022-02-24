@@ -16,6 +16,7 @@ export default function UpdateCourse() {
     const [userId] = useState(authenticatedUser.user.id);
     const [errors, setErrors]  = useState([]);
 
+    //Fetches the current course from teh database
     useEffect(() => {
         context.data.fetchCourse(id)
             .then(response => {
@@ -30,6 +31,7 @@ export default function UpdateCourse() {
             })
     }, [context.data, id, errors]);
 
+    //Submits user changes to course, requiring authentication
     const submit = () => {
         const emailAddress = authenticatedUser.user.emailAddress;
         const password = authenticatedUser.clientPassword;
@@ -52,10 +54,12 @@ export default function UpdateCourse() {
             })
     }
 
+    //Cancel function returns user to the root 
     const cancel = () => {
         history.push('/');
     }
 
+    //Stores changes made by the user in state
     const change = (event) => {
         if (event.target.name === 'courseTitle') {
             setTitle(event.target.value)
@@ -68,6 +72,7 @@ export default function UpdateCourse() {
         }
     }
 
+    //Renders the form and the data from the current course in the form fields
     return (
         <main>
             <div className="wrap">

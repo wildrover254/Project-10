@@ -13,6 +13,7 @@ export default function UserSignUp() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    //Submits information for new user to database
     const submit = () => {
         const user = {
             firstName,
@@ -38,10 +39,12 @@ export default function UserSignUp() {
         })
     }
 
+    //Cancel returns user to root
     const cancel = () => {
         history.push('/');
     }
 
+    //Stores user input in state
     const change = (event) => {
         //const name = event.target.name;
         //const value = event.target.value;
@@ -56,6 +59,7 @@ export default function UserSignUp() {
         }
     }
     
+    //Renders the sign up form
     return (
         <main>
             <div className="form--centered">

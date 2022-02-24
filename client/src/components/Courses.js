@@ -6,11 +6,13 @@ export default function Courses() {
     const context = useContext(Context);
     const [courses, setCourses] = useState([]);
 
+    //Fetches the courses from the database and stores tham in state
     useEffect(() => {
         context.data.fetchCourses()
             .then(courses => setCourses(courses))
     }, [context.data]);
 
+    //Displays all the courses currently stored in state as cards and displays a card to create a course
     return (
         <main>
         <div className="wrap main--grid">

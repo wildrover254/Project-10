@@ -1,5 +1,6 @@
 import React from "react";
 
+//template for the app's form
 export default function Form(props) {
     const {
         cancel,
@@ -19,6 +20,7 @@ export default function Form(props) {
         cancel();
     }
 
+    //Renders any validation errors as well as the submit and cancel buttons
     return (
         <div>
             <ErrorsDisplay errors={errors} />
@@ -31,6 +33,7 @@ export default function Form(props) {
     );
 }
 
+//function for displaying validation errors
 function ErrorsDisplay({ errors }) {
     let errorsDisplay = null;
 

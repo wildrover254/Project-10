@@ -16,6 +16,7 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 
+//Passes App context to components
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
 
@@ -29,6 +30,7 @@ const UserSignOutWithContext = withContext(UserSignOut);
 
 function App() {
 
+//Application routes
   return (
     <Provider>
       <Router>

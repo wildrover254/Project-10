@@ -4,6 +4,7 @@ import Data from "./Data";
 
 export const Context = React.createContext();
 
+//Context creates and maintains an application state
 export class Provider extends Component {
 
     state = {
@@ -39,6 +40,7 @@ export class Provider extends Component {
         );
     }
 
+    //Signs in a valid user and stores the info in a cookie
     signIn = async (emailAddress, password) => {
         const user = await this.data.getUser(emailAddress, password);
         const clientPassword = password;
@@ -54,6 +56,7 @@ export class Provider extends Component {
         return user;
     }
 
+    //Removes cookie and logs out user
     signOut = () => {
         this.setState({ authenticatedUser: null });
         Cookies.remove('authenticatedUser');

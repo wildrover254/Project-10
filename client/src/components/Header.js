@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../Context';
 
+//Stateless header
+//Displays App title and either the currently logged in user with a sign out link
+//or the sign up and sign in links
 export default function Header() {
 
     const { authenticatedUser } = useContext(Context);

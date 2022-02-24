@@ -12,6 +12,7 @@ export default function CourseDetail(props) {
     const [course, setCourse] = useState([]);
     const [user, setUser] = useState([]);
 
+    //Fetches a single course according to the id and stores it in state
     useEffect(() => {
         context.data.fetchCourse(id)
             .then(response => {
@@ -20,6 +21,7 @@ export default function CourseDetail(props) {
             })
     }, [context.data, id]);
 
+    //Deletes the selected course from the database with authentication
     const handleDelete = () => {
         const emailAddress = authenticatedUser.user.emailAddress;
         const password = authenticatedUser.clientPassword;
@@ -34,6 +36,8 @@ export default function CourseDetail(props) {
         <main>
             <div className="actions--bar">
                 <div className="wrap">
+                    {/*The course Update and Delete buttons will only display if 
+                    the authenitcated user's id matches that of the user who created the course*/}
                     { authenticatedUser && course.userId === authenticatedUser.user.id ? (
                         <React.Fragment>
                             <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>

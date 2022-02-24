@@ -15,6 +15,8 @@ export default function CreateCourse() {
     const [userId] = useState(authenticatedUser.user.id);
     const [errors, setErrors] = useState([]);
 
+    /*Passes the createCourse function the user's input stored in state 
+      and either returns the user to the root page or displays validation errors*/
     const submit = () =>{
         const emailAddress = authenticatedUser.user.emailAddress;
         const password = authenticatedUser.clientPassword;
@@ -37,10 +39,12 @@ export default function CreateCourse() {
             })
     }
 
+    //Cancel function returns user to the root page
     const cancel = () => {
         history.push('/');
     }
 
+    //stores the user input in state
     const change = (event) => {
         if (event.target.name === 'courseTitle') {
             setTitle(event.target.value)
@@ -53,6 +57,7 @@ export default function CreateCourse() {
         }
     }
 
+    //Renders the create course form 
     return (
         <main>
             <div className="wrap">
