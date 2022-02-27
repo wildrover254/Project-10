@@ -44,6 +44,9 @@ module.exports = (sequelize) => {
             validate: {
                 notNull: {
                     msg: 'Please attach an email to your account.'
+                },
+                notEmpty: {
+                    msg: 'Please attach an email to your account.'
                 }
             }
         },

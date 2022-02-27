@@ -10,7 +10,7 @@ export default function UserSignUp() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState();
     const [errors, setErrors] = useState([]);
 
     //Submits information for new user to database
